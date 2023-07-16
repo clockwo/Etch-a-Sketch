@@ -1,0 +1,76 @@
+@layer reset, utility, tablet;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    font-family: inherit;
+  }
+
+  html {
+    color-scheme: dark light;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer utility {
+  .wrapper {
+    width: min(100% - 4rem, 980px);
+    margin-inline: auto;
+  }
+}
+
+@layer tablet {
+  .tablet {
+    display: flex;
+    background: rgb(94, 94, 94);
+    height: 100vh;
+  }
+
+  @layer screen {
+    .screen {
+      width: 70%;
+      background: grey;
+      padding: 1.5rem;
+    }
+
+    .screen__painter {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      width: 100%;
+      height: 100%;
+      background: whitesmoke;
+    }
+
+    .square {
+      width: 40px;
+      height: 40px;
+      border: 1px solid black;
+      background: orange;
+    }
+  }
+
+  @layer tools {
+    .tools {
+      width: 30%;
+      background: darkgray;
+    }
+  }
+}
