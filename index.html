@@ -13,7 +13,22 @@
         <article class="screen">
           <div class="screen__painter"></div>
         </article>
-        <aside class="tools"></aside>
+        <aside class="tools">
+          <div class="grid-range">
+            <label for="grid"
+              >Current grid:
+              <p class="current-grid">16x16</p>
+            </label>
+            <input type="range" id="grid" name="grid" list="values" />
+            <datalist id="values">
+              <option value="0" label="16x16"></option>
+              <option value="25" label="32x32"></option>
+              <option value="50" label="64x64"></option>
+              <option value="75" label="128x128"></option>
+              <option value="100" label="256x256"></option>
+            </datalist>
+          </div>
+        </aside>
       </section>
     </main>
   </body>
