@@ -1,4 +1,4 @@
-@layer reset, utility, tablet;
+@layer reset, layout, utility, tablet;
 
 @layer reset {
   *,
@@ -29,9 +29,18 @@
   }
 }
 
+@layer layout {
+  .main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+}
+
 @layer utility {
   .wrapper {
-    width: min(100% - 4rem, 980px);
+    width: min(100%, 95%);
     margin-inline: auto;
   }
 }
@@ -39,8 +48,8 @@
 @layer tablet {
   .tablet {
     display: flex;
+    height: 90vh;
     background: rgb(94, 94, 94);
-    height: 100vh;
   }
 
   @layer screen {
@@ -53,15 +62,13 @@
     .screen__painter {
       display: flex;
       flex-wrap: wrap;
-      align-content: flex-start;
       width: 100%;
       height: 100%;
       background: whitesmoke;
     }
 
     .square {
-      width: 40px;
-      height: 40px;
+      flex: 1 1 auto;
       border: 1px solid black;
       background: orange;
     }
