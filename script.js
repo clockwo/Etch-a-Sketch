@@ -1,18 +1,20 @@
-const screenPainter = document.querySelector('.screen__painter');
-const inputRange = document.querySelector('input');
-const currentGrid = document.querySelector('.current-grid');
+const gridContainer = document.querySelector('.screen__painter');
+const gridSizeSlider = document.querySelector('input');
+const gridSizeDisplay = document.querySelector('.current-grid');
+
+const DEFAULT_GRID_SIZE = 16;
 
 window.addEventListener('load', () => {
-  createGrid();
+  createGridSquares();
 });
 
-function clearGrid() {
+function removeGridSquares() {
   const ceils = document.querySelectorAll('.ceil');
 
   [...ceils].forEach((ceil) => ceil.remove());
 }
 
-function createGrid(gridValue = 16) {
+function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
     const newSquare = document.createElement('div');
     newSquare.className = 'ceil';
@@ -20,19 +22,20 @@ function createGrid(gridValue = 16) {
 
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
     newSquare.style.flex = `1 calc(100% / ${gridValue})`;
-    screenPainter.appendChild(newSquare);
+    gridContainer.appendChild(newSquare);
   }
 }
 
-inputRange.addEventListener('change', (e) => {
-  const values = {
+gridSizeSlider.addEventListener('change', (e) => {
+  const gridSizeMapping = {
     0: 16,
     25: 32,
     50: 64,
     75: 128,
     100: 256,
   };
-  clearGrid();
-  createGrid(values[e.target.value]);
-  currentGrid.innerHTML = `${values[e.target.value]}x${values[e.target.value]}`;
+  const selectedGridSize = gridSizeMapping[e.target.value];
+  removeGridSquares();
+  createGridSquares(selectedGridSize);
+  gridSizeDisplay.innerHTML = `${selectedGridSize}x${selectedGridSize}`;
 });
