@@ -43,6 +43,16 @@
     width: min(100%, 900px);
     margin-inline: auto;
   }
+
+  .rainbowBG {
+    background: linear-gradient(
+      45deg,
+      #dc3b3e,
+      #3b99dc 50%,
+      #3bdc90 75%,
+      rgb(255 141 0) 100%
+    );
+  }
 }
 
 @layer tablet {

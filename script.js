@@ -1,8 +1,11 @@
 const gridContainer = document.querySelector('.screen__painter');
 const gridSizeSlider = document.querySelector('.range-input');
 const gridSizeDisplay = document.querySelector('.current-grid');
+const randomBtn = document.querySelector('.random-btn');
 
+const BOOL = true;
 const DEFAULT_GRID_SIZE = 16;
+let isRandomEnabled = false;
 
 window.addEventListener('load', () => {
   createGridSquares();
@@ -30,7 +33,11 @@ function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
     gridCell.classList.add('square');
 
     gridCell.addEventListener('mouseover', (e) => {
-      gridCell.style.background = `${getColor()}`;
+      if (isRandomEnabled) {
+        gridCell.style.background = `${getRandomColor()}`;
+      } else {
+        gridCell.style.background = `${getColor()}`;
+      }
     });
 
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
@@ -51,4 +58,14 @@ gridSizeSlider.addEventListener('change', (e) => {
   removeGridSquares();
   createGridSquares(selectedGridSize);
   gridSizeDisplay.innerHTML = `${selectedGridSize}x${selectedGridSize}`;
+});
+
+randomBtn.addEventListener('click', (e) => {
+  if (isRandomEnabled) {
+    isRandomEnabled = false;
+    randomBtn.classList.remove('rainbowBG');
+  } else {
+    isRandomEnabled = true;
+    randomBtn.classList.add('rainbowBG');
+  }
 });
