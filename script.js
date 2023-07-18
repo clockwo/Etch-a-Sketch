@@ -25,17 +25,17 @@ function getRandomColor() {
 
 function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
-    const newSquare = document.createElement('div');
-    newSquare.className = 'ceil';
-    newSquare.classList.add('square');
+    const gridCell = document.createElement('div');
+    gridCell.className = 'ceil';
+    gridCell.classList.add('square');
 
-    newSquare.addEventListener('mouseover', (e) => {
-      newSquare.style.background = `${getColor()}`;
+    gridCell.addEventListener('mouseover', (e) => {
+      gridCell.style.background = `${getColor()}`;
     });
 
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
-    newSquare.style.flex = `1 calc(100% / ${gridValue})`;
-    gridContainer.appendChild(newSquare);
+    gridCell.style.flex = `1 calc(100% / ${gridValue})`;
+    gridContainer.appendChild(gridCell);
   }
 }
 
