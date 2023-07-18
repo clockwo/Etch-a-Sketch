@@ -2,10 +2,11 @@ const gridContainer = document.querySelector('.screen__painter');
 const gridSizeSlider = document.querySelector('.range-input');
 const gridSizeDisplay = document.querySelector('.current-grid');
 const randomBtn = document.querySelector('.random-btn');
+const resetBtn = document.querySelector('.reset-btn');
 
-const BOOL = true;
 const DEFAULT_GRID_SIZE = 16;
 let isRandomEnabled = false;
+let currentGridSize;
 
 window.addEventListener('load', () => {
   createGridSquares();
@@ -55,6 +56,7 @@ gridSizeSlider.addEventListener('change', (e) => {
     100: 256,
   };
   const selectedGridSize = gridSizeMapping[e.target.value];
+  currentGridSize = selectedGridSize;
   removeGridSquares();
   createGridSquares(selectedGridSize);
   gridSizeDisplay.innerHTML = `${selectedGridSize}x${selectedGridSize}`;
@@ -68,4 +70,9 @@ randomBtn.addEventListener('click', (e) => {
     isRandomEnabled = true;
     randomBtn.classList.add('rainbowBG');
   }
+});
+
+resetBtn.addEventListener('click', (e) => {
+  removeGridSquares();
+  createGridSquares(currentGridSize);
 });
