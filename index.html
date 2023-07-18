@@ -19,7 +19,13 @@
               >Current grid:
               <p class="current-grid">16x16</p>
             </label>
-            <input type="range" id="grid" name="grid" list="values" />
+            <input
+              class="range-input"
+              type="range"
+              id="grid"
+              name="grid"
+              list="values"
+            />
             <datalist id="values">
               <option value="0" label="16x16"></option>
               <option value="25" label="32x32"></option>
@@ -27,6 +33,16 @@
               <option value="75" label="128x128"></option>
               <option value="100" label="256x256"></option>
             </datalist>
+          </div>
+
+          <div class="color-picker">
+            <p class="color-picker__title">Choose color</p>
+            <input
+              class="colorPick"
+              type="color"
+              name="colorPick"
+              id="colorPick"
+            />
           </div>
         </aside>
       </section>

@@ -1,5 +1,5 @@
 const gridContainer = document.querySelector('.screen__painter');
-const gridSizeSlider = document.querySelector('input');
+const gridSizeSlider = document.querySelector('.range-input');
 const gridSizeDisplay = document.querySelector('.current-grid');
 
 const DEFAULT_GRID_SIZE = 16;
@@ -14,11 +14,24 @@ function removeGridSquares() {
   [...ceils].forEach((ceil) => ceil.remove());
 }
 
+function getColor() {
+  const color = document.querySelector('.colorPick');
+  return color.value;
+}
+
+function getRandomColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+}
+
 function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
     const newSquare = document.createElement('div');
     newSquare.className = 'ceil';
     newSquare.classList.add('square');
+
+    newSquare.addEventListener('mouseover', (e) => {
+      newSquare.style.background = `${getColor()}`;
+    });
 
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
     newSquare.style.flex = `1 calc(100% / ${gridValue})`;
