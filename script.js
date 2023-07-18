@@ -29,19 +29,21 @@ function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
     const gridCell = document.createElement('div');
     gridCell.classList.add('ceil', 'square');
-    gridCell.addEventListener('mouseover', (e) => {
-      if (isRandomEnabled) {
-        gridCell.style.background = `${getRandomColor()}`;
-      } else {
-        gridCell.style.background = `${getColor()}`;
-      }
-    });
-
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
     gridCell.style.flex = `1 calc(100% / ${gridValue})`;
     gridContainer.appendChild(gridCell);
   }
 }
+
+gridContainer.addEventListener('mouseover', (e) => {
+  let ceil = e.target.closest('.ceil');
+  if (!ceil) return;
+  if (isRandomEnabled) {
+    ceil.style.background = `${getRandomColor()}`;
+  } else {
+    ceil.style.background = `${getColor()}`;
+  }
+});
 
 gridSizeSlider.addEventListener('change', (e) => {
   const gridSizeMapping = {
