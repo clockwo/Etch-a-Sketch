@@ -13,9 +13,7 @@ window.addEventListener('load', () => {
 });
 
 function removeGridSquares() {
-  const ceils = document.querySelectorAll('.ceil');
-
-  [...ceils].forEach((ceil) => ceil.remove());
+  gridContainer.replaceChildren();
 }
 
 function getColor() {
@@ -30,9 +28,7 @@ function getRandomColor() {
 function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
     const gridCell = document.createElement('div');
-    gridCell.className = 'ceil';
-    gridCell.classList.add('square');
-
+    gridCell.classList.add('ceil', 'square');
     gridCell.addEventListener('mouseover', (e) => {
       if (isRandomEnabled) {
         gridCell.style.background = `${getRandomColor()}`;
@@ -63,13 +59,8 @@ gridSizeSlider.addEventListener('change', (e) => {
 });
 
 randomBtn.addEventListener('click', (e) => {
-  if (isRandomEnabled) {
-    isRandomEnabled = false;
-    randomBtn.classList.remove('rainbowBG');
-  } else {
-    isRandomEnabled = true;
-    randomBtn.classList.add('rainbowBG');
-  }
+  randomBtn.classList.toggle('rainbowBG');
+  isRandomEnabled = !isRandomEnabled;
 });
 
 resetBtn.addEventListener('click', (e) => {
