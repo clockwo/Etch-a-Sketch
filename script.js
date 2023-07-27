@@ -20,6 +20,8 @@ const stateClasses = {
   isRainbowBackground: 'rainbow-background',
 };
 
+const removeGridSquares = () => gridContainerElement.replaceChildren();
+
 //Fist initial of grid
 createGridSquares();
 
@@ -28,13 +30,13 @@ function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
     const gridCell = document.createElement('div');
     gridCell.classList.add('ceil', 'square');
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
-    gridCell.style.flex = `1 calc(100% / ${gridValue})`;
+    gridCell.style.setProperty('--columns', gridValue);
     gridContainerElement.appendChild(gridCell);
   }
 }
 
-gridContainerElement.addEventListener('mouseover', (e) => {
-  const ceil = e.target.closest('.ceil');
+gridContainerElement.addEventListener('mouseover', ({ target }) => {
+  const ceil = target.closest('.ceil');
   if (!ceil) return;
 
   const hexValue = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -42,8 +44,6 @@ gridContainerElement.addEventListener('mouseover', (e) => {
 
   ceil.style.background = isRandomEnabled ? hexValue : selectedColor;
 });
-
-let removeGridSquares = () => gridContainerElement.replaceChildren();
 
 gridSizeSliderElement.addEventListener('change', ({ target }) => {
   const selectedGridSize = gridSizeMapping[target.value];

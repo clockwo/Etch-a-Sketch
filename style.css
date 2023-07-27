@@ -79,6 +79,10 @@
       background-color: whitesmoke;
     }
 
+    .ceil {
+      flex-basis: calc(100% / var(--columns));
+    }
+
     .square {
       border-top: 1px solid rgba(0, 0, 0, 0.7);
       border-right: 1px solid rgba(0, 0, 0, 0.7);
