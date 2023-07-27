@@ -11,16 +11,17 @@
     <main class="main">
       <section class="tablet wrapper">
         <article class="screen">
-          <div class="screen__painter"></div>
+          <div class="screen__painter" data-js-grid-container></div>
         </article>
         <aside class="tools">
           <div class="grid-range">
             <label for="grid"
               >Current grid:
-              <p class="current-grid">16x16</p>
+              <span class="current-grid" data-js-size-display>16x16</span>
             </label>
             <input
               class="range-input"
+              data-js-slider
               type="range"
               id="grid"
               name="grid"
@@ -37,16 +38,22 @@
 
           <div class="color-picker">
             <p class="color-picker__title">Choose color</p>
+            <label for="colorPick" class="label-hidden" hidden></label>
             <input
               class="colorPick"
+              data-js-color-pick
               type="color"
               name="colorPick"
               id="colorPick"
             />
           </div>
 
-          <button class="random-btn">Random</button>
-          <button class="reset-btn">Reset</button>
+          <button type="button" data-js-random-button class="random-btn">
+            Random
+          </button>
+          <button type="reset" data-js-reset-button class="reset-btn">
+            Reset
+          </button>
         </aside>
       </section>
     </main>
