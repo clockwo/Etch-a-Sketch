@@ -1,29 +1,27 @@
-const gridContainer = document.querySelector('.screen__painter');
-const gridSizeSlider = document.querySelector('.range-input');
-const gridSizeDisplay = document.querySelector('.current-grid');
-const randomBtn = document.querySelector('.random-btn');
-const resetBtn = document.querySelector('.reset-btn');
+const gridContainerElement = document.querySelector(`[data-js-grid-container]`);
+const gridSizeSliderElement = document.querySelector(`[data-js-slider]`);
+const gridSizeDisplayElement = document.querySelector(`[data-js-size-display]`);
+const randomButtonElement = document.querySelector(`[data-js-random-button]`);
+const resetButtonElement = document.querySelector(`[data-js-reset-button]`);
+const colorPickElement = document.querySelector(`[data-js-color-pick]`);
 
 const DEFAULT_GRID_SIZE = 16;
+const gridSizeMapping = {
+  0: 16,
+  25: 32,
+  50: 64,
+  75: 128,
+  100: 256,
+};
 let isRandomEnabled = false;
 let currentGridSize;
 
-window.addEventListener('load', () => {
-  createGridSquares();
-});
+const stateClasses = {
+  isRainbowBackground: 'rainbow-background',
+};
 
-function removeGridSquares() {
-  gridContainer.replaceChildren();
-}
-
-function getColor() {
-  const color = document.querySelector('.colorPick');
-  return color.value;
-}
-
-function getRandomColor() {
-  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-}
+//Fist initial of grid
+createGridSquares();
 
 function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
   for (let i = 1; i <= gridValue * gridValue; i++) {
@@ -31,41 +29,36 @@ function createGridSquares(gridValue = DEFAULT_GRID_SIZE) {
     gridCell.classList.add('ceil', 'square');
     //! Take this flex solution from this author https://github.com/emberavenge/etch-a-sketch
     gridCell.style.flex = `1 calc(100% / ${gridValue})`;
-    gridContainer.appendChild(gridCell);
+    gridContainerElement.appendChild(gridCell);
   }
 }
 
-gridContainer.addEventListener('mouseover', (e) => {
-  let ceil = e.target.closest('.ceil');
+gridContainerElement.addEventListener('mouseover', (e) => {
+  const ceil = e.target.closest('.ceil');
   if (!ceil) return;
-  if (isRandomEnabled) {
-    ceil.style.background = `${getRandomColor()}`;
-  } else {
-    ceil.style.background = `${getColor()}`;
-  }
+
+  const hexValue = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  const selectedColor = colorPickElement.value;
+
+  ceil.style.background = isRandomEnabled ? hexValue : selectedColor;
 });
 
-gridSizeSlider.addEventListener('change', (e) => {
-  const gridSizeMapping = {
-    0: 16,
-    25: 32,
-    50: 64,
-    75: 128,
-    100: 256,
-  };
-  const selectedGridSize = gridSizeMapping[e.target.value];
+let removeGridSquares = () => gridContainerElement.replaceChildren();
+
+gridSizeSliderElement.addEventListener('change', ({ target }) => {
+  const selectedGridSize = gridSizeMapping[target.value];
   currentGridSize = selectedGridSize;
   removeGridSquares();
   createGridSquares(selectedGridSize);
-  gridSizeDisplay.innerHTML = `${selectedGridSize}x${selectedGridSize}`;
+  gridSizeDisplayElement.innerHTML = `${selectedGridSize}x${selectedGridSize}`;
 });
 
-randomBtn.addEventListener('click', (e) => {
-  randomBtn.classList.toggle('rainbowBG');
+randomButtonElement.addEventListener('click', () => {
+  randomButtonElement.classList.toggle(stateClasses.isRainbowBackground);
   isRandomEnabled = !isRandomEnabled;
 });
 
-resetBtn.addEventListener('click', (e) => {
+resetButtonElement.addEventListener('click', () => {
   removeGridSquares();
   createGridSquares(currentGridSize);
 });
